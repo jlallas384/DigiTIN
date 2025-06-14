@@ -1,0 +1,135 @@
+{% extends "admin_base.html" %}
+
+{% block content %}
+
+<h1 class="text-light mb-4">TIN: {{info.TIN}} </h1>
+
+<div class="card bg-body rounded shadow p-4 row-gap-3">
+  <div class="form-box form-blue rounded py-4 px-3">
+    <h3 class="text-primary">
+      Personal Information
+    </h3>
+    <div class="row mt-3">
+      <div class="col-md-6">
+        <p><span class="fw-bold">Full Name: </span>{{info.TaxpayerName}}</p>
+        <p><span class="fw-bold">Date of Birth: </span>{{info.DateOfBirth}}</p>
+        <p><span class="fw-bold">Place of Birth: </span>{{info.PlaceOfBirth}}</p>
+        <p><span class="fw-bold">Gender: </span>{{info.Gender}}</p>
+        <p><span class="fw-bold">Civil Status: </span>{{info.CivilStatus}}</p>
+      </div>
+      <div class="col-md-6">
+        <p><span class="fw-bold">Mother's Maiden Name: </span>{{info.MothersName}}</p>
+        <p><span class="fw-bold">Father's Name: </span>{{info.FathersName}}</p>
+        <p><span class="fw-bold">Citizenship: </span>{{info.Citizenship}}</p>
+        <p><span class="fw-bold">Other Citizenship: </span>{{info.get('OtherCitizenship', 'N/A')}}</p>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="row row-gap-3 gx-3">
+    <div class="col-md-5">
+      <div class="form-box form-blue rounded py-4 px-3 h-100">
+        <h3 class="text-primary">
+          Contact Information
+        </h3>
+        <div class="row mt-3">
+          <p><span class="fw-bold">Contact Type: </span>{{info.PrefConType}}</p>
+          <p><span class="fw-bold">Contact Number: </span>{{info.ContactNum}}</p>
+          <p><span class="fw-bold">Email Address: </span>{{info.EmailAdd}}</p>
+        </div>
+
+      </div>
+    </div>
+    <div class="col-md">
+      <div class="form-box form-blue rounded py-4 px-3">
+        <h3 class="text-primary">
+          Address Information
+        </h3>
+        <div class="row mt-3">
+          <p><span class="fw-bold">Local Residence Address: </span>{{info.LocalAddress}}</p>
+          <p><span class="fw-bold">Business Address: </span>{{info.BusinessAddress}}</p>
+          <p><span class="fw-bold">Foreign Address: </span>{{info.get('ForeignAddress', 'N/A')}}</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="row row-gap-3 gx-3">
+    <div class="col-md-4">
+      <div class="form-box form-blue rounded py-4 px-3">
+        <h3 class="text-primary">
+          Identification Details
+        </h3>
+        <div class="row mt-3">
+          <p><span class="fw-bold">PhilSys Number: </span>{{info.PCN}}</p>
+          <p><span class="fw-bold">ID Type: </span>{{info.IDType}}</p>
+          <p><span class="fw-bold">ID Number: </span>{{info.IDNum}}</p>
+          <p><span class="fw-bold">Effectivity Date: </span>{{info.IDEffectivityDate}}</p>
+          <p><span class="fw-bold">Expiry Date: </span>{{info.IDExpiryDate}}</p>
+          <p><span class="fw-bold">Issuer: </span>{{info.Issuer}}</p>
+          <p><span class="fw-bold">Country of Issue: </span>{{info.IDPlaceOfIssue}}</p>
+        </div>
+
+      </div>
+    </div>
+    <div class="col-md">
+      <div class="form-box form-blue rounded py-4 px-3 h-100">
+        <h3 class="text-primary">
+          Taxpayer Information
+        </h3>
+        <div class="row mt-3">
+          <p><span class="fw-bold">Taxpayer Type: </span>{{info.TaxpayerType}}</p>
+          <p><span class="fw-bold">RDO Code: </span>{{info.RDOCode}}</p>          
+          <p><span class="fw-bold">Purpose of TIN Application: </span>{{info.Purpose}}</p>
+          <p><span class="fw-bold">How much is your expected Annual Gross Sales (GS)?: </span>{{info.ExpAnnualGS}}</p>
+          <p><span class="fw-bold">Are you availing of the 8% income tax rate option in lieu of graduated income tax
+              rates?: </span>{{info.TaxRateOpt}}</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  {% if info.Spouse %}
+  <div class="form-box form-blue rounded py-4 px-3">
+    <h3 class="text-primary">
+      Spouse Information
+    </h3>
+    <div class="row mt-3">
+      <p><span class="fw-bold">Employment Status of Spouse: </span>{{info.Spouse.EmpStatSpouse}}</p>
+      <p><span class="fw-bold">Spouse Name: </span>{{info.Spouse.get('SpouseName', 'N/A')}}</p>
+      <p><span class="fw-bold">Spouse TIN: </span>{{info.Spouse.get('SpouseTIN', 'N/A')}}</p>
+      <p><span class="fw-bold">Spouse Employer's Name: </span>{{info.Spouse.get('SpouseEmpName', 'N/A')}}</p>
+      <p><span class="fw-bold">Spouse Employer's TIN: </span>{{info.Spouse.get('SpouseEmpTIN', 'N/A')}}</p>
+    </div>
+  </div>
+  {% endif %}
+  
+<div class="form-box form-blue rounded py-4 px-3">
+  <h3 class="text-primary">
+    Business Information
+  </h3>
+  <div class="row mt-3 row-gap-3">
+
+
+    {% for bus in info.Business%}
+      <div class="col-6">
+      <h5>
+      Business {{bus.INDNum}}: 
+      </h5>
+      <p><span class="fw-bold">Trade/Business Name: </span>{{bus.INDBusName}}</p>
+      <p><span class="fw-bold">Regulatory Body: </span>{{bus.INDRegBody}}</p>
+      <p><span class="fw-bold">Registration Number: </span>{{bus.INDBusinessRegNum}}</p>
+      <p><span class="fw-bold">Registration Date: </span>{{bus.INDBusinessRegDate}}</p>
+      <p><span class="fw-bold">Line of Business: </span>{{bus.INDLineOfBusiness}}</p>
+      <p><span class="fw-bold">PSIC Code: </span>{{bus.INDPSICCode}}</p>
+      </div>
+    {% endfor %}
+
+  </div>
+</div>
+
+{% endblock %}

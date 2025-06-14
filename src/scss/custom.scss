@@ -1,0 +1,31 @@
+
+@import "../../bootstrap/scss/functions";
+@import "../../bootstrap/scss/variables";
+@import "../../bootstrap/scss/variables-dark";
+
+$primary: #2461e6;
+$teal: #49da7d;
+$success: #20c997;
+$danger: #ff3131;
+
+$theme-colors: map-merge(
+  $theme-colors,
+  (
+    "teal": $teal
+  )
+);
+
+@import "../../bootstrap/scss/maps";
+@import "../../bootstrap/scss/mixins";
+@import "../../bootstrap/scss/utilities";
+
+$theme-colors-text: map-merge($theme-colors-text, ("teal": $teal));
+$theme-colors-bg-subtle: map-merge($theme-colors-bg-subtle, ("teal": #d1f5ee));
+$theme-colors-border-subtle: map-merge($theme-colors-border-subtle, ("teal": #8ad4c3));
+
+$theme-colors-text-dark: map-merge($theme-colors-text-dark, ("teal": #bff4e7));
+$theme-colors-bg-subtle-dark: map-merge($theme-colors-bg-subtle-dark, ("teal": #145c52));
+$theme-colors-border-subtle-dark: map-merge($theme-colors-border-subtle-dark, ("teal": #20c997));
+
+
+@import "../../bootstrap/scss/bootstrap";

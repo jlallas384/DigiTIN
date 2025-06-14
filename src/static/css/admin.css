@@ -1,0 +1,31 @@
+#sidebar {
+    width: 15vw;
+    height: 100vh;
+    min-width: 200px;
+    background-color: var(--light-blue);
+}
+
+.nav-button {
+    text-decoration: none;
+    display: block;
+    color: black
+}
+
+.nav-button.active {
+    font-weight: bold;
+    background-color: var(--bs-primary);
+    color: white;    
+}
+
+.stat-card {
+    transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+}
+
+
+li a:hover {
+    cursor: pointer;
+}

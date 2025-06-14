@@ -1,0 +1,104 @@
+{% extends "admin_base.html" %}
+
+{% block content %}
+
+
+<h1 class="text-light mb-4">Database</h1>
+
+
+<div class="row g-2 align-items-center mb-3">
+  <div class="col-auto">
+    <select class="form-select" id="search_kind">
+      <option value="name" selected>Name</option>
+      <option value="tin">TIN</option>
+    </select>
+  </div>
+  <div class="col input-group">
+    <input type="text" class="form-control" id="search_value">
+    <button type="button" class="btn btn-primary" id="search_btn">Search</button>
+  </div>
+
+</div>  
+
+
+<div class="row">
+  <div class="col">
+    <div class="card bg-body rounded shadow">
+      {% if not approved | length %}
+      <div class="p-3">
+        <h4 class="text-center m-0">No results found</h4>
+      </div>
+
+      {% else %}
+
+      <div class="table-responsive">
+        <table class="table align-middle table-hover border rounded overflow-hidden">
+
+
+          <thead class="table-light">
+            <tr>
+              <th scope="col" style="width: 10%">TIN</th>
+              <th scope="col" style="width: 80%">Full Name</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for app in approved %}
+            <tr>
+              <th>{{ app[0] }} </th>
+              <td>{{ app[1] }} </td>
+              <td class="text-end">
+                <a class="btn btn-primary" href="/database/{{app[0]}}">
+                  View
+                </a>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card-footer bg-white border-top-0">
+        <nav class="d-flex justify-content-center mt-2">
+          <ul class="pagination mb-0">
+            <li class="page-item {{'disabled' if page == 1 else ''}}">
+              <a class="page-link" data-target="{{page-1}}" tabindex="-1">Previous</a>
+            </li>
+            {% if page == 1 %}
+            <li class="page-item"><a class="page-link active" data-target="1">1</a></li>
+            {% if total_page >= 2 %}
+            <li class="page-item"><a class="page-link" data-target="2">2</a></li>
+            {% endif %}
+            {% if total_page >= 3 %}
+            <li class="page-item"><a class="page-link" data-target="3">3</a></li>
+            {% endif %}
+            {% elif page != total_page %}
+            <li class="page-item"><a class="page-link" data-target="{{page-1}}">{{ page - 1}}</a></li>
+            <li class="page-item"><a class="page-link active" data-target="{{page}}">{{ page }}</a></li>
+            <li class="page-item"><a class="page-link" data-target="{{page+1}}">{{ page + 1}}</a></li>
+            {% else %}
+            {% if page - 2 >= 1 %}
+            <li class="page-item"><a class="page-link" data-target="{{page-2}}">{{ page-2}} </a></li>
+            {% endif %}
+            {% if page - 1 >= 1 %}
+            <li class="page-item"><a class="page-link" data-target="{{page-1}}">{{ page-1}} </a></li>
+            {% endif %}
+            <li class="page-item"><a class="page-link active" data-target="{{page}}">{{page}}</a></li>
+            {% endif %}
+
+
+
+            <li class="page-item {{'disabled' if page >= total_page else ''}}">
+              <a class="page-link" data-target="{{page+1}}">Next</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+
+      {% endif %}
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}
